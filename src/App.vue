@@ -1,17 +1,33 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <button @click="toggleDisplay" class="modalButton">Toggle Todo List</button>
+  <transition name="fade">
+    <ToDoComponent v-show="modalDisplayed" />
+  </transition>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ToDoComponent from "./components/ToDoComponent.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    ToDoComponent,
+  },
+  data() {
+    return {
+      modalDisplayed: false,
+    };
+  },
+  methods: {
+    toggleDisplay() {
+      if (this.modalDisplayed) {
+        this.modalDisplayed = false;
+      } else {
+        this.modalDisplayed = true;
+      }
+    },
+  },
+};
 </script>
 
 <style>
@@ -22,5 +38,17 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+.modalButton {
+  margin-bottom: 5px;
 }
 </style>
