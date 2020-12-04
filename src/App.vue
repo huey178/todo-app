@@ -1,31 +1,46 @@
 <template>
-  <button @click="toggleDisplay" class="modalButton">Toggle Todo List</button>
+  <button
+    @click="
+      modalDisplayed === true
+        ? (modalDisplayed = false)
+        : (modalDisplayed = true)
+    "
+    class="toggleButton"
+  >
+    Toggle Todo List
+  </button>
   <transition name="fade">
     <ToDoComponent v-show="modalDisplayed" />
   </transition>
+  <div class="calendar">
+    <button
+      @click="
+        calendarDisplayed === true
+          ? (calendarDisplayed = false)
+          : (calendarDisplayed = true)
+      "
+    >
+      Toggle Calendar
+    </button>
+    <Calendar v-if="calendarDisplayed" />
+  </div>
 </template>
 
 <script>
 import ToDoComponent from "./components/ToDoComponent.vue";
+import Calendar from "./components/Calendar.vue";
 
 export default {
   name: "App",
   components: {
     ToDoComponent,
+    Calendar,
   },
   data() {
     return {
       modalDisplayed: false,
+      calendarDisplayed: false,
     };
-  },
-  methods: {
-    toggleDisplay() {
-      if (this.modalDisplayed) {
-        this.modalDisplayed = false;
-      } else {
-        this.modalDisplayed = true;
-      }
-    },
   },
 };
 </script>
@@ -48,7 +63,7 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
-.modalButton {
+.toggleButton {
   margin-bottom: 5px;
 }
 </style>
