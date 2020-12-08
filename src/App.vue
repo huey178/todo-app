@@ -1,4 +1,5 @@
 <template>
+  <NavBar />
   <button
     @click="
       modalDisplayed === true
@@ -22,19 +23,23 @@
     >
       Toggle Calendar
     </button>
-    <Calendar v-if="calendarDisplayed" />
+    <transition name="fade">
+      <Calendar v-show="calendarDisplayed" />
+    </transition>
   </div>
 </template>
 
 <script>
 import ToDoComponent from "./components/ToDoComponent.vue";
 import Calendar from "./components/Calendar.vue";
+import NavBar from "./components/NavBar.vue";
 
 export default {
   name: "App",
   components: {
     ToDoComponent,
     Calendar,
+    NavBar,
   },
   data() {
     return {
@@ -52,7 +57,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+body {
+  margin: 0;
 }
 .fade-enter-active,
 .fade-leave-active {
